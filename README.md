@@ -9,89 +9,67 @@ AWS CLI configured or access to AWS Console
 
 **1️⃣ Step 1: Create an SNS Topic**
 Using AWS Console:
-Go to Amazon SNS.
-Click Topics > Create topic.
-Select Standard.
-Provide a name, e.g., MySNSTopic.
-Click Create topic.
-
+1.Go to Amazon SNS.
+2.Click Topics > Create topic.
+3.Select Standard.
+4.Provide a name, e.g., MySNSTopic.
+5.Click Create topic.
 **Using AWS CLI:
 aws sns create-topic --name MySNSTopic**
 
 **2️⃣ Step 2: Create an SQS Queue**
 Using AWS Console:
-Go to Amazon SQS.
-Click Create Queue.
-Choose Standard Queue.
-Name it, e.g., MySQSQueue.
-Leave default settings and create it.
-
+1.Go to Amazon SQS.
+2.Click Create Queue.
+3.Choose Standard Queue.
+4.Name it, e.g., MySQSQueue.
+5.Leave default settings and create it.
 **Using AWS CLI:
 **aws sqs create-queue --queue-name MySQSQueue****
 
 **3️⃣ Step 3: Subscribe SQS Queue to SNS Topic**
-**Steps:
-Get the ARN of both:
-SNS Topic: aws sns list-topics
-SQS Queue: aws sqs get-queue-attributes
-Allow SNS to send messages to SQS by updating the SQS access policy.
+Steps:
+1.Get the ARN of both:
+2.SNS Topic: aws sns list-topics
+3.SQS Queue: aws sqs get-queue-attributes
+4.Allow SNS to send messages to SQS by updating the SQS access policy.
 ![image](https://github.com/user-attachments/assets/6e0e9523-326d-402d-9e2f-c63d8a06c55f)
-
 Attach this policy under SQS > Access policy section (or via CLI set-queue-attributes).
+
 Subscribe SQS to SNS:
-bash
-Copy
-Edit
-aws sns subscribe \
-  --topic-arn arn:aws:sns:REGION:ACCOUNT_ID:MySNSTopic \
-  --protocol sqs \
-  --notification-endpoint arn:aws:sqs:REGION:ACCOUNT_ID:MySQSQueue
+![image](https://github.com/user-attachments/assets/122b4afb-4a22-4690-b108-7048cdf78518)
   
 **4️⃣ Step 4: Publish a Test Message to SNS**
-bash
-Copy
-Edit
-aws sns publish \
-  --topic-arn arn:aws:sns:REGION:ACCOUNT_ID:MySNSTopic \
-  --message "Test message from SNS to SQS"
+![image](https://github.com/user-attachments/assets/1fe6a56f-045b-44df-8ba9-434b32a6d6b8)
 Check SQS queue to confirm message delivery.
 
 **5️⃣ Step 5: Set Up CloudWatch Monitoring & Alarms**
 Monitor SQS Metrics:
-Go to CloudWatch > Metrics > SQS.
-Select the queue (ApproximateNumberOfMessagesVisible, NumberOfMessagesSent, etc.).
-Create an Alarm:
-Example: Alert if messages > 10 for 5 minutes.
+1.Go to CloudWatch > Metrics > SQS.
+2.Select the queue (ApproximateNumberOfMessagesVisible, NumberOfMessagesSent, etc.).
+3.Create an Alarm:
+       Example: Alert if messages > 10 for 5 minutes.
 Monitor SNS Metrics:
-Go to CloudWatch > Metrics > SNS.
-Check NumberOfMessagesPublished, NumberOfNotificationsFailed, etc.
-Set an alarm for failures if needed.
+1.Go to CloudWatch > Metrics > SNS.
+2.Check NumberOfMessagesPublished, NumberOfNotificationsFailed, etc.
+3.Set an alarm for failures if needed.
 
 **6️⃣ Step 6: Set CloudWatch Alarm Notifications via SNS**
-Create a new SNS topic for alarms (e.g., CloudWatchAlertsTopic).
-Add your email as a subscription.
-Attach this topic as the notification target when creating alarms.
+1.Create a new SNS topic for alarms (e.g., CloudWatchAlertsTopic).
+2.Add your email as a subscription.
+3.Attach this topic as the notification target when creating alarms.
 
 **📁 Folder Structure (Optional for Repo)**
-pgsql
-Copy
-Edit
-aws-sqs-sns-cloudwatch-setup/
-├── README.md
-├── policies/
-│   └── sns-sqs-policy.json
-├── scripts/
-│   ├── create-sns.sh
-│   ├── create-sqs.sh
-│   └── subscribe.sh
+![image](https://github.com/user-attachments/assets/cbd52303-675e-4a87-bdf8-3d5d1cf6c14d)
+
 
 **🔚 Conclusion**
 You’ve now set up:
-An SNS Topic
-An SQS Queue
-Subscription between SNS → SQS
-CloudWatch metrics and alarms
+1.An SNS Topic
+2.An SQS Queue
+3.Subscription between SNS → SQS
+4.CloudWatch metrics and alarms
 This setup is useful for:
-Decoupling microservices
-Event-based architecture
-Monitoring queues & handling failures
+1.Decoupling microservices
+2.Event-based architecture
+3.Monitoring queues & handling failures
