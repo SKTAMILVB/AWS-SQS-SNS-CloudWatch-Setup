@@ -15,11 +15,8 @@ Select Standard.
 Provide a name, e.g., MySNSTopic.
 Click Create topic.
 
-Using AWS CLI:
-bash
-Copy
-Edit
-aws sns create-topic --name MySNSTopic
+**Using AWS CLI:
+aws sns create-topic --name MySNSTopic**
 
 **2️⃣ Step 2: Create an SQS Queue**
 Using AWS Console:
@@ -29,11 +26,8 @@ Choose Standard Queue.
 Name it, e.g., MySQSQueue.
 Leave default settings and create it.
 
-Using AWS CLI:
-bash
-Copy
-Edit
-aws sqs create-queue --queue-name MySQSQueue
+**Using AWS CLI:
+**aws sqs create-queue --queue-name MySQSQueue****
 
 **3️⃣ Step 3: Subscribe SQS Queue to SNS Topic**
 **Steps:
@@ -41,26 +35,7 @@ Get the ARN of both:
 SNS Topic: aws sns list-topics
 SQS Queue: aws sqs get-queue-attributes
 Allow SNS to send messages to SQS by updating the SQS access policy.
-json
-Copy
-Edit
-{
-  "Version": "2012-10-17",
-  "Id": "sns-sqs-policy",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "SQS:SendMessage",
-      "Resource": "arn:aws:sqs:REGION:ACCOUNT_ID:MySQSQueue",
-      "Condition": {
-        "ArnEquals": {
-          "aws:SourceArn": "arn:aws:sns:REGION:ACCOUNT_ID:MySNSTopic"
-        }
-      }
-    }
-  ]
-}**
+![image](https://github.com/user-attachments/assets/6e0e9523-326d-402d-9e2f-c63d8a06c55f)
 
 Attach this policy under SQS > Access policy section (or via CLI set-queue-attributes).
 Subscribe SQS to SNS:
