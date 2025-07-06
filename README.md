@@ -60,8 +60,7 @@ Monitor SNS Metrics:
 3.Attach this topic as the notification target when creating alarms.
 
 **📁 Folder Structure (Optional for Repo)**
-![image](https://github.com/user-attachments/assets/cbd52303-675e-4a87-bdf8-3d5d1cf6c14d)
-
+![image](https://github.com/user-attachments/assets/b5782d1a-b0e1-412c-aed9-20fbed3592f4)
 
 **🔚 Conclusion**
 You’ve now set up:
