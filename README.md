@@ -33,14 +33,14 @@ Steps:
 2.SNS Topic: aws sns list-topics
 3.SQS Queue: aws sqs get-queue-attributes
 4.Allow SNS to send messages to SQS by updating the SQS access policy.
-![image](https://github.com/user-attachments/assets/6e0e9523-326d-402d-9e2f-c63d8a06c55f)
+![image](https://github.com/user-attachments/assets/582ee29a-ce0b-4473-948b-6944b3d26aef)
 Attach this policy under SQS > Access policy section (or via CLI set-queue-attributes).
 
 Subscribe SQS to SNS:
-![image](https://github.com/user-attachments/assets/122b4afb-4a22-4690-b108-7048cdf78518)
+![image](https://github.com/user-attachments/assets/4e2aa105-3780-47a8-a718-76bfefb43dde)
   
 **4️⃣ Step 4: Publish a Test Message to SNS**
-![image](https://github.com/user-attachments/assets/1fe6a56f-045b-44df-8ba9-434b32a6d6b8)
+![image](https://github.com/user-attachments/assets/64e60ff6-e951-4fe8-803a-301735106faf)
 Check SQS queue to confirm message delivery.
 
 **5️⃣ Step 5: Set Up CloudWatch Monitoring & Alarms**
